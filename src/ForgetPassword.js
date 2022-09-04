@@ -7,11 +7,13 @@ import {
   import React from 'react'
   import { useFormik } from 'formik'
   import * as Yup from "yup";
+  import {Link} from "react-router-dom"
   
   import TextField from '@mui/material/TextField'
   import { API } from './global.js';
   import { useState } from 'react';
-  import {Link} from 'react-router-dom';
+  import Card from '@mui/material/Card'
+
   
   
   export function ForgetPassword() {
@@ -48,45 +50,55 @@ import {
         forgetPassword(emailDetail);
       },
     });
-    const style1=errorMsg==="User exists and password reset mail is sent"?{color:"green"}:{color:"red"}
+    const style1=errorMsg==="User exists and password reset mail is sent"?
+    {color:"green"}:{color:"red"}
     
     return <div className="add-user-container">
-    <form  
-    onSubmit={handleSubmit}
-    className="add-user-form" >
-      <Typography variant="h4" pb={2}
-    sx={{
-      textAlign: 'center',
-    }}>
-     E-mail Details
-    </Typography>
+      <Card sx={{width:600,alignItems:"center",
+      textAlign:"center",justifyContent:"center",marginTop:2,marginLeft:50,height:600,
+      }}>
+    <form  onSubmit={handleSubmit}  
+    style={{alignItems:"center",textAlign:"center",padding:20}}>
+      
       
     <TextField
+    InputProps={{ style: { fontSize:15 } }}
+    InputLabelProps={{ style: { fontSize:15} }}
       className="add-user-name"
-      label="Enter Registered Email - example:john@abc.com"
+      label="Enter Registered mail id"
       type="Email"
       value={values.Email} 
       name="Email"
+      style={{ padding: 5 }}
       onChange={handleChange}
       onBlur={handleBlur}
       error={touched.Email&&errors.Email?true:false}
       helperText={touched.Email&&errors.Email?errors.Email:""}
+      variant="filled"
       />
-       <Button className="add-user-btn" 
-        color="primary"
-      type="submit"
-      variant="contained">submit</Button>
-      <div className="text-center" style={style1}>
+      <br></br>
+      <br></br>
+      <button type="submit" 
+        className="btn btn-info" style={{height:40,width:60,fontSize:15}}>Submit</button>
+      <div className="text-center" >
     {errorMsg}
     </div>
+    <br></br>
+    <br></br>
       <div className="text-center" style={{color:"blue"}}>
-      <Link to="/Register">Create  Account!</Link>
-      <br/>
-      <br/>
-     <Link to="/Login">I can remember my password now!</Link>
+      <h4>Don't have an account?  <Link to="/Register" ><button type="submit" 
+        className="btn btn-info" style={{height:40,width:60,fontSize:15}}>Signup</button></Link></h4>
+      
+      <br></br>
+      <br></br>
+      <br></br>
+     <Link to="/Login"><button type="submit" 
+        className="btn btn-info" style={{height:40,width:250,fontSize:15}}>I can remember my password now</button></Link>
     </div>
    </form> 
+   </Card>
   </div>;
+  
   }
   
   

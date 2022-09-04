@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Vendors() {
+function AddProducts() {
   return (
     <div className='Vendors'>
       <h1>Vendors</h1>
@@ -8,4 +8,4 @@ function Vendors() {
   );
 }
 
-export default Vendors;
+export default AddProducts;

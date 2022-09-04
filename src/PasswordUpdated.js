@@ -6,7 +6,8 @@ export function PasswordUpdated() {
     <>
     <br/>
       <br/>
-    <h1 style={{textAlign:"center",color:"green",fontSize:"50px"}}>Password updated successfully</h1>
+    <h1 style={{textAlign:"center",color:"green",fontSize:"50px"}}>Password 
+    updated successfully</h1>
 
     <br/>
       <br/>""

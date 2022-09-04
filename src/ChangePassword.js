@@ -133,10 +133,10 @@ function SetNewPassword({id}){
   {errorMsg}
   </div>
     <div className="text-center" style={{color:"blue"}}>
-    <Link to="/Register">Create  Account</Link>
+    <Link to="/Register">Signup</Link>
     <br/>
     <br/>
-   <Link to="/Login">Login to your Account!</Link>
+   <Link to="/Login">Login to your Account</Link>
   </div>
  </form> 
 </div>);

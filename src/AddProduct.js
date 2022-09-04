@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {useFormik} from "formik";
 import * as yup from "yup";
-import  Card from "@mui/material/Card";
+import Card from "@mui/material/Card"
 import { API } from "./global";
 
 
@@ -20,71 +20,45 @@ const formValidationSchema = yup.object({
 
 
 
-export  default function EditProduct() {
+export  default function ProductAdditionForm() {
 
-  const[product,setProduct]=useState(null);
-  const { id } = useParams();
-  
-  function getProductAPI(){
-    fetch(`${API}/products/${id}`)
-    .then((data)=>data.json())
-    .then((mvs)=>setProduct(mvs));
-  }
-
-  useEffect(()=>{
-    getProductAPI();
-  },[]);
-
-
-
-
-
-
-  return(
-    product ? <ProductEditCore product={product}/> : "Loading..."
-  )
-
-}
-
-
-
-  function ProductEditCore({product}){
-    
-
+ 
     const {handleBlur,handleChange,handleSubmit,values,touched,errors} = useFormik({
       initialValues : {
-                        productname: product.productname,
-                        productprice: product.productprice,
-                        quantity: product.quantity,
-                        vendor: product.vendor
+                        productname: "",
+                        productprice: "",
+                        quantity: "",
+                        vendor: ""
                         
                       },
       validationSchema : formValidationSchema,
-      onSubmit : (values)=>editProductAPI(product,values)
+      onSubmit : (values)=>AddproductAPI(values)
     })
 
     
 
-
-
     const navigate = useNavigate();
 
-    function editProductAPI(product,values){
-      fetch(`${API}/products/${product._id}`,
-        {
-          method:"PUT",
-          body : JSON.stringify(values),
-          headers : {"Content-Type":"application/json"}
+    function AddproductAPI(newProduct){
+      fetch(`${API}/products`,
+        {method:"POST",
+        body : JSON.stringify(newProduct),
+        headers : {"Content-Type":"application/json"}
         }
       ).then(()=>navigate("/products"))
+        
     }
+  
+    
+  
+  
     return (
       <Card sx={{width:600,alignItems:"center",
-      textAlign:"center",justifyContent:"center",marginTop:2,marginLeft:50,height:600,
+      textAlign:"center",justifyContent:"center",marginLeft:50,height:600,
       }}>
     <form  onSubmit={handleSubmit}  
     style={{alignItems:"center",textAlign:"center",padding:20}}>
-     
+      
       <TextField 
        
       error={touched.productname && errors.productname}
@@ -93,7 +67,6 @@ export  default function EditProduct() {
       InputProps={{ style: { fontSize:15 } }}
         InputLabelProps={{ style: { fontSize:15} }}
        variant="filled"
-       
          name="productname" 
          value={values.productname} 
          onChange={handleChange} 
@@ -103,9 +76,8 @@ export  default function EditProduct() {
            helperText={touched.productname && errors.productname}/>
       {/* {touched.productname && errors.productname} */}
 
-      <br></br>
-       <br></br>
-
+      
+<br></br>
 
       <TextField
       error={touched.productprice && errors.productprice}
@@ -120,9 +92,8 @@ export  default function EditProduct() {
         style={{padding:5}}
         
         helperText={touched.productprice && errors.productprice}/>
-        <br></br>
-       <br></br>
       {/* {touched.productprice && errors.productprice} */}
+      <br></br>
       <TextField
       error={touched.quantity && errors.quantity}
       InputProps={{ style: { fontSize:15 } }}
@@ -138,7 +109,6 @@ export  default function EditProduct() {
          
           helperText={touched.quantity && errors.quantity}/>
           <br></br>
-       <br></br>
       
       <TextField 
       error={touched.vendor && errors.vendor}
@@ -158,8 +128,7 @@ export  default function EditProduct() {
        <br></br>
       
       <button type="submit" 
-        className="btn btn-info" style={{height:40,width:60,fontSize:15}}>Save</button>
-        
+        className="btn btn-info" style={{height:40,width:60,fontSize:15}}>Add</button>
       </form>
       </Card>
     );
